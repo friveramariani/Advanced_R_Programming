@@ -74,8 +74,8 @@ summary.LongitudinalData <- function(object, ...) {
     
   } else {
     
-    object$summary.data <- object$summary.data %>% 
-      aggregate(value ~ visit + room, FUN = mean, data = .) %>%
+    object$summary.data <- object$summary.data %% 
+      aggregate(value ~ visit + room, FUN = mean, data = .) %%
       spread(room, value)
     
   }
@@ -90,3 +90,43 @@ print.summary_LongitudinalData <- function(x, ...) {
   print(x$summary.data)
   invisible(x)
 }
+
+
+
+#---implementation------------------------------------
+library(readr)
+library(magrittr)
+library(tidyr)
+source("oop_code.R")
+
+data <- read_csv("data/MIE.csv")
+
+x <- make_LD(data)
+print(class(x))
+
+
+print(x)
+
+out <- subject(x, 10)
+print(out)
+
+
+out_14 <- subject(x, 14)
+print(out_14)
+ 
+
+out_summ_54 <- subject(x, 54) %% summary
+print(out_summ_54)
+
+out_summ_14 <- subject(x, 14) %% summary
+print(out_summ_14)
+
+out_vst_room_14 <- subject(x, 44) %% visit(0) %% room("bedroom")
+print(out_vst_room_14)
+
+out_vst_room_44 <- subject(x, 44) %% visit(0) %% room("bedroom") %% summary
+print(out_vst_room_44)
+
+out_vst_lvng_room_44 <- subject(x, 44) %% visit(1) %% room("living room") %% summary
+print(out_vst_lvng_room_44)
+ 
