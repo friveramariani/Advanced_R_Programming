@@ -1,0 +1,59 @@
+# Test 1
+
+When exaluating the functions with x =1, factorial_mem was the fastest.  
+The slowest of these four functions was factorial_reduce, which could be explained by
+if() statement that verifies that purrr package installed. The remaining two functions, 
+factorial_loop and factorial_func, have comparable outputs for all 8 variables, but both were
+approximately 1/3 slower than factorial_m.
+
+microbenchmark(
+  factorial_loop(1),
+  factorial_reduce(1),
+  factorial_func(1),
+  factorial_mem(1)
+)
+Unit: nanoseconds
+                expr   min      lq     mean  median       uq    max neval cld
+   factorial_loop(1)  1582  1972.0  2604.15  2378.5   2760.0  14953   100   a 
+ factorial_reduce(1) 83609 87624.5 95450.15 89558.5 100712.5 260809   100   b
+   factorial_func(1)  1581  1856.0  2768.31  2169.0   2518.5  13935   100   a 
+    factorial_mem(1)   980  1189.0  1790.31  1414.5   1699.0  12670   100   a 
+
+
+# Test 2
+
+In the case of x = 10, the outputs parallel with those of  x=1: factorial_m was the fastest, 
+factorial_reduce the slowest, and factorial_loop and factorial_func somewhat comparable. 
+Nevertheless, the magnitude of the difference between factorial_mem and the next fastest function 
+increased. For example, for x = 1 factorial_mem was 68% times faster than the next fastest function: 
+for x =10, it was 300% faster. In the case of factorial_loop and factorial_func the difference not only 
+increased (from 9% in x = 1 to 33% in x =10) but now factorial_loop was faster of the two.
+
+microbenchmark(
+  factorial_loop(10),
+  factorial_reduce(10),
+  factorial_func(10),
+  factorial_mem(10)
+  )
+Unit: microseconds
+                 expr    min       lq      mean   median       uq     max neval cld
+   Factorial_loop(10)  7.538   8.8570  10.27196   9.4905  10.7335  18.931   100   b 
+ Factorial_reduce(10) 96.216 107.0295 121.89956 112.3380 115.4240 360.642   100   c
+   Factorial_func(10) 10.654  12.0380  13.53490  12.6740  13.6530  21.436   100   b 
+    Factorial_mem(10)  1.717   2.7575   3.63430   3.2590   3.7310  33.802   100   a
+
+
+# Test 3
+
+Lastly, for x = 100, similar to what was observed with x=10, the magnitude of the difference 
+increased: now factorial_mem was approximately 36 times (3600%) faster than the next fastest 
+function. factorial_loop remained the second fastest, followed by factorial_func and factorial_reduce. 
+Contrary to the increase in magnitude for factorial_mem, the magnitide of the difference between 
+factorial_loop and factorial_func for x = 100 (approx. 12% difference) was less than with x = 10 (33%).
+
+Unit: microseconds
+                  expr     min       lq      mean   median       uq     max neval  cld
+   factorial_loop(100)  86.574 106.6285 110.29561 110.0665 113.8000 153.464   100    b  
+ factorial_reduce(100) 200.513 210.0740 219.17173 215.0465 222.5875 382.713   100    d
+   factorial_func(100) 109.735 116.9345 124.41876 124.4355 126.3725 340.088   100    c 
+    factorial_mem(100)   1.950   2.6280   3.72778   3.1460   3.5105  27.881   100    a 
