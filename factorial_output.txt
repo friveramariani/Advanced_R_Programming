@@ -37,10 +37,10 @@ microbenchmark(
   )
 Unit: microseconds
                  expr    min       lq      mean   median       uq     max neval cld
-   Factorial_loop(10)  7.538   8.8570  10.27196   9.4905  10.7335  18.931   100   b 
- Factorial_reduce(10) 96.216 107.0295 121.89956 112.3380 115.4240 360.642   100   c
-   Factorial_func(10) 10.654  12.0380  13.53490  12.6740  13.6530  21.436   100   b 
-    Factorial_mem(10)  1.717   2.7575   3.63430   3.2590   3.7310  33.802   100   a
+   factorial_loop(10)  7.538   8.8570  10.27196   9.4905  10.7335  18.931   100   b 
+ factorial_reduce(10) 96.216 107.0295 121.89956 112.3380 115.4240 360.642   100   c
+   factorial_func(10) 10.654  12.0380  13.53490  12.6740  13.6530  21.436   100   b 
+    factorial_mem(10)  1.717   2.7575   3.63430   3.2590   3.7310  33.802   100   a
 
 
 # Test 3
